@@ -1,6 +1,8 @@
 package org.laetproject.socialmedia.resources;
 
 import org.laetproject.socialmedia.domain.User;
+import org.laetproject.socialmedia.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,11 +14,12 @@ import java.util.List;
 @RequestMapping(value = "/users")
 public class UserResource {
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping
     public ResponseEntity<List<User>> findAll() {
-        User maria = new User("1", "Maria", "maria@gmail.com");
-        User gabriel = new User("2", "Gabriel", "gabriel@gmail.com");
-        return ResponseEntity.ok().body(List.of(maria, gabriel));
+        return ResponseEntity.ok().body(userService.findAll());
 
     }
 }
